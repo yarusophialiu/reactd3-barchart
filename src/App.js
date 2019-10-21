@@ -1,6 +1,6 @@
 import React from 'react';
 import ChartWrapper from './ChartWrapper'
-import Container from 'react-bootstrap/Container'
+import { Row, Col, Container } from 'react-bootstrap'
 import Navbar from 'react-bootstrap/Navbar'
 
 function App() {
@@ -10,7 +10,14 @@ function App() {
       <Navbar bg="light">
         <Navbar.Brand>Barchartly</Navbar.Brand>
       </Navbar>
-      <ChartWrapper />
+      <Container>
+        <Row>
+          <Col xs={12}></Col>
+        </Row>
+        <Row>
+          <Col xs={12}><ChartWrapper /></Col>
+        </Row>
+      </Container>
       </header>
     </div>
   );
