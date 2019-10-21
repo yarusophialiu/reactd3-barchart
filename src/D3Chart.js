@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-
 // const url = "https://udemy-react-d3.firebaseio.com/ages.json"
 const tallest_men = "https://udemy-react-d3.firebaseio.com/tallest_men.json"
 const tallest_women = "https://udemy-react-d3.firebaseio.com/tallest_women.json"
@@ -19,11 +18,10 @@ export default class D3Chart {
             .attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`)
         
         // x label
-        vis.svg.append("text")
+        vis.xLabel = vis.svg.append("text")
             .attr("x", WIDTH / 2)
             .attr("y", HEIGHT + 50)
             .attr("text-anchor", "middle")
-            .text("The world's tallest men")
 
         vis.svg.append("text")
             .attr("x", -(HEIGHT / 2))
@@ -41,22 +39,16 @@ export default class D3Chart {
             d3.json(tallest_men),
             d3.json(tallest_women)
         ]).then(datasets => {
-            const [men, women] = datasets
-            let flag = true
-            
-            vis.data = men
-            vis.update()
-
-            d3.interval(() => {
-                vis.data = flag ? men : women
-                vis.update()
-                flag = !flag
-            }, 1000)
+            vis.men = datasets[0]
+            vis.women = datasets[1]
+            vis.update("men")
         })
     }
 
-    update() {
+    update(gender) {
         const vis = this
+        vis.data = (gender == "men") ? vis.men : vis.women
+        vis.xLabel.text(`The world's tallest ${gender}`)
         const data = vis.data
         const max = d3.max(data, d => d.height )
         const min = d3.min(data, d => d.height )
