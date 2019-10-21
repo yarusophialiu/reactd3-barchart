@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 
-export default function GenderDropdown {
+export default function GenderDropdown({ genderSelected }) {
     return (
         <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -9,8 +9,8 @@ export default function GenderDropdown {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                <Dropdown.Item>Women</Dropdown.Item>
-                <Dropdown.Item>Men</Dropdown.Item>
+                <Dropdown.Item onSelect={() => genderSelected("women")}>Women</Dropdown.Item>
+                <Dropdown.Item onSelect={() => genderSelected("men")}>Men</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     )
