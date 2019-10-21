@@ -3,14 +3,22 @@ import D3Chart from './D3Chart'
 
 export default class ChartWrapper extends Component {
     componentDidMount() {
-        new D3Chart(this.refs.chart)
+        this.setState({
+            chart: new D3Chart(this.refs.chart)
+        })
+    }
+
+    shouldComponentUpdate() { return false }
+
+    componentWillReceiveProps(nextProps) {
+        // run as soon as new props become
+        // available for the react component
+        this.state.chart.update(nextProps.gender)
     }
 
     render() {
         return (
-            <div ref="chart">
-                
-            </div>
+            <div ref="chart"></div>
         )
     }
 }
